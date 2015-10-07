@@ -9,6 +9,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		//for overlay
 		$scope.featuredProjects = {};
 
+		//utilsService.cssLayout();
 
 		//menu functions
 		$scope.trustAsHtml = $sce.trustAsHtml;
@@ -27,15 +28,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.projectMarker = null;
 		$scope.markerData = null;
 
-		//service that returns project markers
-		MarkerDataService.getMarkerData()
-			.success(function (markerData) {
-				$scope.getProjectMarkers(markerData);
-				$scope.addProjectMarkers(markerData);
-			})
-			.error(function (data, status) {
-				alert('Failed to load project markers. Status: ' + status);
-			});
 
 		/**
 		 *
@@ -133,13 +125,10 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			grayMap.addTo(map);
 			L.control.layers(layers).addTo(map);
 
-			//$scope.sidebar = setTimeout(function() {
-					var sidebar = L.control.sidebar('sidebar', {
-						closeButton: true,
-						position: 'left'
-					}).addTo(map);
-				//}, 1500);
-
+			//var sidebar = L.control.sidebar('sidebar', {
+			//	closeButton: true,
+			//	position: 'left'
+			//}).addTo(map);
 
 			changeMapFrom = function (currentMap) {
 				if (currentMap === 'gray-map') {
@@ -153,6 +142,18 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			//var markers = new L.MarkerClusterGroup();
 			//markers.addLayer(new L.Marker(getRandomLatLng(map)));
 			//map.addLayer(markers);
+
+
+
+			//service that returns project markers
+			MarkerDataService.getMarkerData()
+					.success(function (markerData) {
+						$scope.getProjectMarkers(markerData);
+						$scope.addProjectMarkers(markerData);
+					})
+					.error(function (data, status) {
+						alert('Failed to load project markers. Status: ' + status);
+					});
 
 			$scope.markerArray = [];
 
@@ -277,11 +278,10 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 			//	alert('yep!');
 			//});
 
-		};
+			$scope.getProjectMarkers = function (markerData) {
+			};
 
-		$scope.getProjectMarkers = function (markerData) {
 		};
-
 
 	}
 ]);
